@@ -13,4 +13,5 @@ BBLAYERS ?= " \
   /home/mitchell/Documents/final_project/poky/meta-openembedded/meta-oe \
   /home/mitchell/Documents/final_project/poky/meta-openembedded/meta-python \
   /home/mitchell/Documents/final_project/poky/meta-openembedded/meta-multimedia \
+  /home/mitchell/Documents/final_project/meta-dfplayer-project \
   "

@@ -1,0 +1,12 @@
+[Unit]
+Description=DFPlayer Mini control daemon
+After=dev-ttyAMA0.device
+Requires=dev-ttyAMA0.device
+
+[Service]
+ExecStart=/usr/bin/dfplayer-ctl
+Restart=on-failure
+User=root
+
+[Install]
+WantedBy=multi-user.target

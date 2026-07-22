@@ -1,0 +1,7 @@
+poky/build/tmp/
+poky/build/sstate-cache/
+poky/build/downloads/
+poky/build/cache/
+poky/build/conf/local.conf
+poky/build/conf/bblayers.conf
+poky/build/conf/templateconf.cfg
