@@ -22,6 +22,7 @@
 #define DFP_CMD_SET_VOLUME 0x06
 #define DFP_CMD_PLAY 0x0D
 #define DFP_CMD_PAUSE 0x0E
+#define DFP_CMD_REPEAT 0x11
 #define DFP_CMD_STOP 0x16
 #define DFP_CMD_RESET 0x0C
 #define DFP_CMD_QUERY_VOLUME 0x43
@@ -40,6 +41,7 @@ int dfp_pause(dfp_handle_t *h);
 int dfp_stop(dfp_handle_t *h);
 int dfp_next(dfp_handle_t *h);
 int dfp_prev(dfp_handle_t *h);
+int dfp_repeat(dfp_handle_t *h, uint8_t status);
 int dfp_play_track(dfp_handle_t *h, uint16_t track);
 int dfp_set_volume(dfp_handle_t *h, uint8_t volume);
 int dfp_volume_up(dfp_handle_t *h);

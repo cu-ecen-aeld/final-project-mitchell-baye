@@ -4,7 +4,7 @@ After=dev-ttyAMA0.device
 Requires=dev-ttyAMA0.device
 
 [Service]
-ExecStart=/usr/bin/dfplayer-ctl
+ExecStart=/usr/bin/dfplayer-ctl -d /dev/ttyAMA3 play
 Restart=on-failure
 User=root
 

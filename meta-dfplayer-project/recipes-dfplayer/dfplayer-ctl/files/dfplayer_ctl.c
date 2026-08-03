@@ -6,7 +6,7 @@
 #include <errno.h>
 #include <termios.h>
 
-#include "dfplayer-ctl.h"
+#include "dfplayer_ctl.h"
 
 static int configure_serial(int fd)
 {
@@ -71,7 +71,7 @@ void dfp_close(dfp_handle_t *h)
 }
 
 /*
- * Checksum = 0 - (VER + LEN + CMD + FEEDBACK + PARAM_HI + PARAM_LO)
+ * DFPlayer Checksum = 0 - (VER + LEN + CMD + FEEDBACK + PARAM_HI + PARAM_LO)
  */
 static uint16_t dfp_checksum(uint8_t cmd, uint8_t feedback, uint8_t param_hi, uint8_t param_lo)
 {
@@ -117,6 +117,7 @@ int dfp_pause(dfp_handle_t *h)                      { return dfp_send_command(h,
 int dfp_stop(dfp_handle_t *h)                       { return dfp_send_command(h, DFP_CMD_STOP, 0); }
 int dfp_next(dfp_handle_t *h)                       { return dfp_send_command(h, DFP_CMD_NEXT, 0); }
 int dfp_prev(dfp_handle_t *h)                       { return dfp_send_command(h, DFP_CMD_PREV, 0); }
+int dfp_repeat(dfp_handle_t *h, uint8_t status)     { return dfp_send_command(h, DFP_CMD_REPEAT, status); }
 int dfp_play_track(dfp_handle_t *h, uint16_t track) { return dfp_send_command(h, DFP_CMD_PLAY_TRACK, track); }
 int dfp_set_volume(dfp_handle_t *h, uint8_t volume) { return dfp_send_command(h, DFP_CMD_SET_VOLUME, volume); }
 int dfp_volume_up(dfp_handle_t *h)                  { return dfp_send_command(h, DFP_CMD_VOLUME_UP, 0); }
@@ -128,7 +129,7 @@ static void usage(const char *prog)
             "Usage: %s [-d device] <command> [args}\n"
             "\n"
             "Options:\n"
-            "  -d device    UART device (default: /dev/ttyAMA0)\n"
+            "  -d device    UART device (default: /dev/ttyAMA3)\n"
             "\n"
             "Commands:\n"
             "  play             Resume/start playback\n"
@@ -145,7 +146,7 @@ static void usage(const char *prog)
 
 int main(int argc, char *argv[])
 {
-    const char *device = "/dev/ttyAMA0";
+    const char *device = "/dev/ttyAMA3";
     int argi = 1;
 
     if (argc >= 3 && strcmp(argv[1], "-d") == 0) 
@@ -181,6 +182,19 @@ int main(int argc, char *argv[])
         rc = dfp_next(&h);
     else if (strcmp(command, "prev") == 0)
         rc = dfp_prev(&h);
+    else if (strcmp(command, "repeat") == 0)
+    {
+        if (argi + 1 >= argc)
+        {
+            fprintf(stderr, "repeating requires a start or stop status\n");
+            rc = -1;
+        }
+        else
+        {
+            uint8_t status = strtol(argv[argi + 1], NULL, 10);
+            rc = dfp_repeat(&h, status);
+        }
+    }
     else if (strcmp(command, "track") == 0)
     {
         if (argi + 1 >= argc)
