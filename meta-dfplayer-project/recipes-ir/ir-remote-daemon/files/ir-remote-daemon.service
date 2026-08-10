@@ -1,0 +1,13 @@
+[Unit]
+Description=IR remote to DFPlayer command daemon
+After=sys-subsystem-rc-devices-rc2.device ir-protocols.service dfplayer-daemon.service
+Wants=sys-subsystem-rc-devices-rc2.device ir-protocols.service
+
+[Service]
+ExecStart=/usr/bin/ir-remote-daemon /dev/input/event4 /run/dfplayer.sock
+Restart=on-failure
+RestartSec=2
+User=root
+
+[Install]
+WantedBy=multi-user.target

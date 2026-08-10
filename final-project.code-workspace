@@ -1,0 +1,7 @@
+{
+    "folders": [
+        { "path": "meta-dfplayer-project" },
+        { "path": "poky/build/conf" }
+    ],
+    "settings": {}
+}

@@ -1,0 +1,20 @@
+[Unit]
+Description=Enable IR receiver protocols for gpio_ir_recv
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c 'echo +nec > /sys/class/rc/rc2/protocols; \
+                       echo +rc-5 > /sys/class/rc/rc2/protocols; \
+                       echo +rc-6 > /sys/class/rc/rc2/protocols; \
+                       echo +jvc > /sys/class/rc/rc2/protocols; \
+                       echo +sony > /sys/class/rc/rc2/protocols; \
+                       echo +sanyo > /sys/class/rc/rc2/protocols; \
+                       echo +sharp > /sys/class/rc/rc2/protocols; \
+                       echo +rc-5-sz > /sys/class/rc/rc2/protocols; \
+                       echo +mce_kbd > /sys/class/rc/rc2/protocols; \
+                       echo +xmp > /sys/class/rc/rc2/protocols; \
+                       echo +imon > /sys/class/rc/rc2/protocols'
+
+[Install]
+WantedBy=multi-user.target
